@@ -5,6 +5,7 @@ class CustomTextField extends StatelessWidget {
   final TextEditingController controller;
   final IconData? icon;
   final TextInputType textInputType;
+  final FormFieldValidator<String>? validator;
 
   const CustomTextField({
     super.key,
@@ -12,6 +13,7 @@ class CustomTextField extends StatelessWidget {
     required this.controller,
     this.icon,
     this.textInputType = TextInputType.text,
+    this.validator,
   });
 
   @override
@@ -25,7 +27,9 @@ class CustomTextField extends StatelessWidget {
         border: OutlineInputBorder(),
       ),
       keyboardType: textInputType,
-      validator: (value) => value!.isEmpty ? 'Ce champs est obligatoir' : null,
+      validator:
+          validator ??
+          (value) => value!.isEmpty ? 'Ce champs est obligatoir' : null,
     );
   }
 }

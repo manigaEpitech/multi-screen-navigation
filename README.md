@@ -1,4 +1,4 @@
-# 🍳 MiamChef - Application Flutter Multi-Écrans
+# 🍳 my_cuisine - Application Flutter Multi-Écrans
 
 MiamChef est une application mobile et tablette développée avec Flutter permettant de rechercher, consulter et ajouter des recettes de cuisine. Ce projet a été réalisé dans le cadre de la validation des compétences en développement multi-plateforme et en gestion de la navigation.
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../main.dart'; // Importation nécessaire pour accéder à themeNotifier
 import '../widgets/theme_toggle.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -6,25 +7,28 @@ class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final themeModeNotifier = ValueNotifier<ThemeMode>(ThemeMode.light);
+    // Vérifie si le mode actuel de l'application est sombre
+    final bool isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Scaffold(
-      appBar: AppBar(title: Text('Paramettre')),
-      body: ValueListenableBuilder(
-        valueListenable: themeModeNotifier,
-        builder: (context, currentMode, child) {
-          return ThemeToggle(
-            isDark: Theme.of(context).brightness == Brightness.dark,
-            onChanged: (isDark) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(
-                    isDark ? 'Mode sombre active' : 'Mode clair active',
-                  ),
-                ),
-              );
-            },
-          );
-        },
+      appBar: AppBar(title: const Text('Paramètres')),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: ListView(
+          children: [
+            ThemeToggle(
+              isDark: isDark,
+              onChanged: (bool value) {
+                // Change dynamiquement le mode de l'application
+                if (value) {
+                  themeNotifier.value = ThemeMode.dark;
+                } else {
+                  themeNotifier.value = ThemeMode.light;
+                }
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

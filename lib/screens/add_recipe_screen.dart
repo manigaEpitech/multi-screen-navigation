@@ -52,6 +52,7 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
       body: Padding(
         padding: EdgeInsets.all(16.0),
         child: Form(
+          autovalidateMode: AutovalidateMode.onUserInteraction,
           key: _formKey,
           child: ListView(
             shrinkWrap: true,
@@ -60,11 +61,23 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
               CustomTextField(
                 controller: _title,
                 labelText: 'Titre de la recette',
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Veuillez entrer un titre';
+                  }
+                  return null;
+                },
               ),
               SizedBox(height: 15),
               CustomTextField(
                 labelText: 'Category de la recette',
                 controller: _category,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Veuillez entrer une categorie';
+                  }
+                  return null;
+                },
                 icon: (Icons.category),
               ),
               SizedBox(height: 15),
@@ -81,6 +94,12 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
                     child: CustomTextField(
                       labelText: 'Ingredients de la recette',
                       controller: _ingredient,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Veuillez entrer un ingredient';
+                        }
+                        return null;
+                      },
                       icon: (Icons.add_shopping_cart_sharp),
                     ),
                   ),
@@ -102,6 +121,12 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
                       labelText: 'Etape de la recette',
                       controller: _step,
                       icon: (Icons.add_shopping_cart_sharp),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Veuillez entrer une etape';
+                        }
+                        return null;
+                      },
                     ),
                   ),
                   IconButton(
@@ -114,6 +139,12 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
               CustomTextField(
                 labelText: 'Image de la recette',
                 controller: _imageUrl,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Veuillez entrer une image';
+                  }
+                  return null;
+                },
                 icon: Icons.add_to_photos_sharp,
               ),
               SizedBox(height: 15),
