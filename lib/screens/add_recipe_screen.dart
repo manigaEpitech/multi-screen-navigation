@@ -53,7 +53,7 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
         title: _title.text,
         category: _selectedCategory,
         imageUrl: _imageUrl.text.isEmpty
-            ? 'https://unsplash.com'
+            ? 'assets/images/poisson.jpg'
             : _imageUrl.text,
         duration: int.parse(_duration.text),
         ingredients: _ingredients,
@@ -65,7 +65,6 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
     }
   }
 
-  @override
   void _addToList(List<String> list) {
     if (_dynamic.text.isNotEmpty) {
       setState(() {

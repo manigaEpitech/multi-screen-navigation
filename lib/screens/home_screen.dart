@@ -26,7 +26,6 @@ class _HomeScreenState extends State<HomeScreen> {
     super.dispose();
   }
 
-  @override
   void _updateScreen() {
     setState(() {});
   }
