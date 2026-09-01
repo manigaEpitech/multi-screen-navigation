@@ -1,6 +1,6 @@
 # 🍳 my_cuisine - Application Flutter Multi-Écrans
 
-MiamChef est une application mobile et tablette développée avec Flutter permettant de rechercher, consulter et ajouter des recettes de cuisine. Ce projet a été réalisé dans le cadre de la validation des compétences en développement multi-plateforme et en gestion de la navigation.
+my_cuisine est une application mobile et tablette développée avec Flutter permettant de rechercher, consulter et ajouter des recettes de cuisine. Ce projet a été réalisé dans le cadre de la validation des compétences en développement multi-plateforme et en gestion de la navigation.
 
 ##  Fonctionnalités 
 
@@ -71,4 +71,21 @@ flutter run
 Pour tester l'application avec les performances réelles de production (mode Profile) :
 ```bash
 flutter run --profile
+```
+# 🍳 my_cuisine V2 - Application Certifiée Flutter
+
+## 🛠️ Améliorations de l'Architecture & Certifications
+
+Suite aux retours de certification, l'application a été entièrement mise à jour :
+1. **Couche de Données Abstraite** : Les données ne sont plus figées, elles transitent via un `RecipeRepository` étendant `ChangeNotifier` agissant comme une gestion d'état centralisée et réactive (Suggestion 1 & Problème 1).
+2. **Robustesse et Sécurité Null Safety** : Traitement des cas d'IDs introuvables sur l'écran détail afin d'éviter le plantage `StateError` (Problème 9).
+3. **Ergonomie Avancée** :
+   - Catégories gérées sous forme de menu déroulant sécurisé (`DropdownButtonFormField`) pour éliminer les fautes de frappe (Problème 8).
+   - Ajout d'une interface sophistiquée de saisie avec des `Chips` dynamiques et unifiées supprimant le code dupliqué (Problème 7 & Suggestion 4).
+4. **Couverture de Tests (Problème 3)** : Ajout de tests de Widgets et de logique de validation (`test/widget_test.dart`).
+5. **Intégration Continue (CI/CD) (Problème 5)** : Pipeline GitHub Actions opérationnel (`.github/workflows/main.yml`) déclenchant automatiquement l'analyse syntaxique et les tests à chaque push.
+
+## 🧪 Lancer les Tests du projet
+```bash
+flutter test
 ```

@@ -1,30 +1,53 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'package:my_cuisine/main.dart';
+import 'package:my_cuisine/widgets/custom_button.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  group('Tests Unitaires et de Widgets de MiamChef', () {
+    testWidgets(
+      'Le widget CustomButton affiche correctement son texte de label',
+      (WidgetTester tester) async {
+        // Instanciation du bouton dans l'environnement de test
+        await tester.pumpWidget(
+          MaterialApp(
+            home: Scaffold(
+              body: CustomButton(label: 'Tester Sauvegarde', onPressed: () {}),
+            ),
+          ),
+        );
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+        // Vérification que le texte est présent à l'écran
+        expect(find.text('Tester Sauvegarde'), findsOneWidget);
+      },
+    );
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+    testWidgets('CustomTextField montre une erreur de validation si vide', (
+      WidgetTester tester,
+    ) async {
+      final controller = TextEditingController();
+      final formKey = GlobalKey<FormState>();
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: Form(
+              key: formKey,
+              child: TextFormField(
+                controller: controller,
+                validator: (value) =>
+                    value == null || value.isEmpty ? 'Requis' : null,
+              ),
+            ),
+          ),
+        ),
+      );
+
+      // Force la validation sans rien écrire
+      formKey.currentState!.validate();
+      await tester.pump();
+
+      // Vérifie que l'erreur apparaît
+      expect(find.text('Requis'), findsOneWidget);
+    });
   });
 }

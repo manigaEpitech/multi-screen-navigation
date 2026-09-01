@@ -7,7 +7,13 @@ class DetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final recipe = dataRecipes.firstWhere((r) => r.id == recipeId);
+    final recipe = recipeRepository.findById(recipeId);
+    if (recipe == null) {
+      return Scaffold(
+        appBar: AppBar(title: const Text('Recette non trouvée')),
+        body: const Center(child: Text('Recette non trouvée')),
+      );
+    }
     return Scaffold(
       appBar: AppBar(title: Text(recipe.title)),
       body: SingleChildScrollView(
@@ -32,6 +38,11 @@ class DetailScreen extends StatelessWidget {
                         '${recipe.duration} mins',
                         style: Theme.of(context).textTheme.titleMedium,
                       ),
+                      SizedBox(width: 15),
+                      Chip(
+                        label: Text(recipe.category),
+                        backgroundColor: Colors.orange.shade100,
+                      ),
                     ],
                   ),
 
@@ -40,13 +51,26 @@ class DetailScreen extends StatelessWidget {
                     'Ingrediants',
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
-                  ListView.builder(
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    itemCount: recipe.ingredients.length,
-                    itemBuilder: (context, index) => ListTile(
-                      leading: Icon(Icons.check_circle_outline),
-                      title: Text(recipe.ingredients[index]),
+
+                  ...recipe.ingredients.map(
+                    (ingredient) => ListTile(
+                      leading: Icon(Icons.lens, size: 10),
+                      title: Text(ingredient),
+                    ),
+                  ),
+
+                  SizedBox(height: 20),
+                  Text('Etapes', style: Theme.of(context).textTheme.titleLarge),
+                  ...recipe.steps.map(
+                    (step) => ListTile(
+                      leading: CircleAvatar(
+                        radius: 10,
+                        child: Text(
+                          '${recipe.steps.indexOf(step) + 1}',
+                          style: const TextStyle(fontSize: 10),
+                        ),
+                      ),
+                      title: Text(step),
                     ),
                   ),
                 ],

@@ -12,20 +12,49 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   String _searchQuery = '';
+
+  @override
+  void initState() {
+    super.initState();
+
+    recipeRepository.addListener((_updateScreen));
+  }
+
+  @override
+  void dispose() {
+    recipeRepository.removeListener((_updateScreen));
+    super.dispose();
+  }
+
+  @override
+  void _updateScreen() {
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     //filtrage des donnees
-    final filteredRecipes = dataRecipes
+    final filteredRecipes = recipeRepository.recipes
         .where((r) => r.title.toLowerCase().contains(_searchQuery))
         .toList();
 
     //Adaptatif: calcule du nombre de colonnes selon la largeur de l'ecran(Mobile vs Tablette)
     final double width = MediaQuery.of(context).size.width;
-    final int crossAxisCount = width > 600 ? 3 : 2;
+    int crossAxisCount = 2;
+
+    if (width > 1200) {
+      crossAxisCount = 5; // Pour les très grands écrans
+    } else if (width > 800) {
+      crossAxisCount = 4; // Pour les grands écrans
+    } else if (width > 600) {
+      crossAxisCount = 2; // Pour les tablettes
+    } else {
+      crossAxisCount = 1; // Pour les mobiles
+    }
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('MiamChef'),
+        title: Text('Ma Cuisine'),
         actions: [
           IconButton(
             onPressed: () => context.push('/setting'),
@@ -53,8 +82,8 @@ class _HomeScreenState extends State<HomeScreen> {
               child: GridView.builder(
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: crossAxisCount,
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10,
+                  crossAxisSpacing: 12,
+                  mainAxisSpacing: 12,
                 ),
                 itemCount: filteredRecipes.length,
                 itemBuilder: (context, index) {
