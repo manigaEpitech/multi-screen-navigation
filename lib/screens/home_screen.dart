@@ -48,7 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
     } else if (width > 600) {
       crossAxisCount = 2; // Pour les tablettes
     } else {
-      crossAxisCount = 1; // Pour les mobiles
+      crossAxisCount = 2; // Pour les mobiles
     }
 
     return Scaffold(

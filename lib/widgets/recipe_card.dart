@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/recipe.dart';
+import 'custom_image.dart';
 
 class RecipeCard extends StatelessWidget {
   final Recipe recipe;
@@ -19,12 +20,7 @@ class RecipeCard extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(15),
-              child: Image.asset(
-                recipe.imageUrl,
-                height: double.infinity,
-                width: double.infinity,
-                fit: BoxFit.cover,
-              ),
+              child: BuildRecipeImage(path: recipe.imageUrl),
             ),
 
             Positioned(
@@ -52,7 +48,7 @@ class RecipeCard extends StatelessWidget {
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 16,
-                    fontWeight: .bold,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),

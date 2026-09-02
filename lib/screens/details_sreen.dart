@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../data/recipe_data.dart';
+import '../widgets/custom_image.dart';
 
 class DetailScreen extends StatelessWidget {
   final String recipeId;
@@ -19,12 +20,7 @@ class DetailScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Image.asset(
-              recipe.imageUrl,
-              width: double.infinity,
-              height: 250,
-              fit: BoxFit.cover,
-            ),
+            BuildRecipeImage(path: recipe.imageUrl, height: 250),
             Padding(
               padding: EdgeInsets.all(16.0),
               child: Column(
